@@ -223,7 +223,8 @@ functions used with `after-change-functions'."
             (<= (point-max) hideshowvis-max-file-size))
     (hideshowvis-minor-mode 1)))
 
-(defun hideshowvis--set-hidden-marker-bitmap (bmp)
+(defun hideshowvis--set-hidden-marker-bitmap (sym bmp)
+  (set-default sym bmp)
   (define-fringe-bitmap 'hideshowvis-hidden-marker bmp))
 
 (defcustom hideshowvis-hidden-marker-bitmap [0 24 24 126 126 24 24 0]
@@ -234,8 +235,7 @@ fringe indicator for hidden folds."
                             integer integer
                             integer integer))
   :group 'hideshow
-  :set 'hideshowvis--set-hidden-marker-bitmap
-  :initialize 'hideshowvis--set-hidden-marker-bitmap)
+  :set 'hideshowvis--set-hidden-marker-bitmap)
 
 (defcustom hideshowvis-hidden-fringe-face 'hideshowvis-hidden-fringe-face
   "*Specify face used to highlight the fringe on hidden regions."
